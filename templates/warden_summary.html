@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Warden Summary</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+body { background: #e9f1ff; }
+.table thead th { background:#0d6efd; color:white; text-align:center; }
+.table tbody td { background:white; vertical-align:middle; }
+.header-box{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:15px;
+    flex-wrap: wrap;
+}
+.search-box{ display:flex; gap:10px; margin-top:10px; }
+.status-approved{ color:green; font-weight:600; }
+.status-pending{ color:orange; font-weight:600; }
+.status-rejected{ color:red; font-weight:600; }
+.btn-group{ margin-bottom:10px; }
+.web-time{
+    font-weight:600;
+    color:#0d6efd;
+}
+</style>
+
+<script>
+function toggleCard(id){
+    let card = document.getElementById(id);
+    card.style.display = (card.style.display === "none") ? "block" : "none";
+}
+
+let currentFilter = 'All';
+
+function filterGuardAction(action){
+    currentFilter = action;
+    let table = document.querySelector(".table tbody");
+    let rows = table.querySelectorAll("tr");
+
+    rows.forEach(row => {
+        let guardAction = row.querySelector("[id^='guard_action_']").innerText || "-";
+        if(action === 'All' ||
+           (action === 'Pending' && guardAction === '-') ||
+           guardAction === action){
+            row.style.display = '';
+        } else {
+            row.style.display = 'none';
+        }
+    });
+}
+
+function takeAction(enroll, action, rowId){
+
+    // Update UI instantly
+    document.getElementById("guard_action_" + rowId).innerText = action;
+    document.getElementById("guard_action_time_" + rowId).innerText = "Saving...";
+
+    document.getElementById("grant_" + rowId).disabled = true;
+    document.getElementById("deny_" + rowId).disabled = true;
+
+    // Save to DB (Server-side IST time)
+    fetch("/update_status", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ enrollment: enroll, status: action })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if(data.time){
+            document.getElementById("guard_action_time_" + rowId).innerText = data.time;
+        } else {
+            document.getElementById("guard_action_time_" + rowId).innerText = "-";
+        }
+    });
+
+    filterGuardAction(currentFilter);
+}
+</script>
+</head>
+
+<body>
+<div class="container py-4">
+
+<div class="header-box">
+    <div>
+        <h3>📋 Warden Summary</h3>
+        <div class="web-time">
+            🕒 Web Time (IST): {{ current_web_time }}
+        </div>
+    </div>
+
+    <div class="btn-group">
+        <button class="btn btn-success btn-lg" style="width:120px;" onclick="filterGuardAction('Grant')">Approved</button>
+        <button class="btn btn-danger btn-lg" style="width:120px;" onclick="filterGuardAction('Deny')">Denied</button>
+        <button class="btn btn-warning btn-lg" style="width:120px;" onclick="filterGuardAction('Pending')">Pending</button>
+        <button class="btn btn-primary btn-lg" style="width:120px;" onclick="filterGuardAction('All')">All</button>
+    </div>
+
+    <form method="GET" action="/warden_summary" class="search-box">
+        <input type="text" name="search_id"
+               value="{{request.args.get('search_id','')}}"
+               placeholder="Search by Outpass ID"
+               class="form-control">
+        <button class="btn btn-primary btn-lg">Search</button>
+    </form>
+</div>
+
+<table class="table table-bordered text-center">
+<thead>
+<tr>
+    <th>Enrollment No</th>
+    <th>Info Card</th>
+    <th>Status</th>
+    <th>Action</th>
+    <th>Guard Action</th>
+    <th>Guard Action Time (IST)</th>
+</tr>
+</thead>
+
+<tbody>
+{% if enriched %}
+{% for r in enriched %}
+<tr id="row_{{loop.index}}">
+    <td>{{ r.enroll }}</td>
+    <td>{{ r.card_html | safe }}</td>
+
+    <td>
+        {% if r.status == 'Approved' %}
+            <span class="status-approved">Approved</span>
+        {% elif r.status == 'Pending' %}
+            <span class="status-pending">Pending</span>
+        {% else %}
+            <span class="status-rejected">Rejected</span>
+        {% endif %}
+    </td>
+
+    <td>
+        {% if r.status == 'Approved' %}
+        <button id="grant_{{loop.index}}"
+                onclick="takeAction('{{r.enroll}}','Grant','{{loop.index}}')"
+                class="btn btn-success btn-lg"
+                style="width:120px;"
+                {% if r.guard_status in ['Grant','Deny'] %}disabled{% endif %}>
+            Grant
+        </button>
+
+        <button id="deny_{{loop.index}}"
+                onclick="takeAction('{{r.enroll}}','Deny','{{loop.index}}')"
+                class="btn btn-danger btn-lg"
+                style="width:120px;"
+                {% if r.guard_status in ['Grant','Deny'] %}disabled{% endif %}>
+            Deny
+        </button>
+        {% else %}
+            <span style="color: gray;">No Action</span>
+        {% endif %}
+    </td>
+
+    <td id="guard_action_{{loop.index}}">{{ r.guard_status or '-' }}</td>
+    <td id="guard_action_time_{{loop.index}}">{{ r.guard_action_time or '-' }}</td>
+</tr>
+{% endfor %}
+{% else %}
+<tr>
+    <td colspan="6">No Records Found</td>
+</tr>
+{% endif %}
+</tbody>
+</table>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Outpass Form | GRW Polytechnic Tasgaon</title>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background: url("{{ url_for('static', filename='college_bg.jpg') }}") no-repeat center center/cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: "Poppins", sans-serif;
+      color: white;
+    }
+
+    .overlay {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(6px);
+      z-index: 0;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      width: 460px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      padding: 30px 40px;
+      box-shadow: 0 0 25px rgba(0, 200, 255, 0.4);
+      animation: fadeIn 2s ease-in-out;
+      backdrop-filter: blur(10px);
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+      color: #00d4ff;
+      text-shadow: 0 0 15px #00eaff;
+      animation: glow 2s infinite alternate;
+    }
+
+    label {
+      font-weight: bold;
+      margin-top: 10px;
+      display: block;
+    }
+
+    input[type="text"], input[type="date"], textarea, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+      font-size: 1rem;
+      background: rgba(255, 255, 255, 0.9);
+      color: #333;
+    }
+
+    input[readonly]{
+      background: #dddddd;
+      color:#000;
+      cursor: not-allowed;
+    }
+
+    textarea {
+      resize: none;
+      height: 70px;
+    }
+
+    .time-box {
+      display: flex;
+      gap: 10px;
+    }
+
+    .time-box select {
+      width: 33%;
+    }
+
+    img {
+      margin-top: 10px;
+      border-radius: 8px;
+      display: none;
+      width: 120px;
+      border: 2px solid #00c6ff;
+      box-shadow: 0 0 10px #00c6ff;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 20px;
+      border: none;
+      border-radius: 8px;
+      background: linear-gradient(90deg, #007bff, #00c6ff);
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px #00eaff;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 0.85rem;
+      margin-top: 20px;
+      color: #ccc;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="overlay"></div>
+
+<div class="container">
+  <h2>Student Outpass Form</h2>
+
+  <form method="POST">
+
+    <!-- Enrollment -->
+    <label>Enrollment No:</label>
+
+    <input type="text"
+           id="enroll"
+           name="enroll"
+           value="{{ enroll_no }}"
+           readonly
+           required>
+
+    <img id="studentPhoto" alt="Student Photo">
+
+    <!-- Hostel -->
+    <label>Hostel Name:</label>
+    <input type="text" name="hostel_name" placeholder="Enter Hostel Name" required>
+
+
+    <!-- Dates -->
+    <label>From Date:</label>
+    <input type="date" name="from_date" value="{{ web_date }}">
+
+    <label>To Date:</label>
+    <input type="date" name="to_date" value="{{ web_date }}">
+
+    <!-- Outgoing -->
+    <label>Outgoing Time:</label>
+    <div class="time-box">
+      <select name="out_hour" required>
+        <option value="">HH</option>
+        {% for i in range(1,13) %}
+        <option value="{{'%02d' % i}}">{{'%02d' % i}}</option>
+        {% endfor %}
+      </select>
+
+      <select name="out_minute" required>
+        <option value="">MM</option>
+        {% for i in range(0,60) %}
+        <option value="{{'%02d' % i}}">{{'%02d' % i}}</option>
+        {% endfor %}
+      </select>
+
+      <select name="out_ampm" required>
+        <option value="AM">AM</option>
+        <option value="PM">PM</option>
+      </select>
+    </div>
+
+    <!-- Incoming -->
+    <label>Incoming Time:</label>
+    <div class="time-box">
+      <select name="in_hour" required>
+        <option value="">HH</option>
+        {% for i in range(1,13) %}
+        <option value="{{'%02d' % i}}">{{'%02d' % i}}</option>
+        {% endfor %}
+      </select>
+
+      <select name="in_minute" required>
+        <option value="">MM</option>
+        {% for i in range(0,60) %}
+        <option value="{{'%02d' % i}}">{{'%02d' % i}}</option>
+        {% endfor %}
+      </select>
+
+      <select name="in_ampm" required>
+        <option value="AM">AM</option>
+        <option value="PM">PM</option>
+      </select>
+    </div>
+
+    <!-- Reason -->
+    <label>Reason:</label>
+    <textarea name="reason" placeholder="Enter your reason" required></textarea>
+
+    <!-- Address -->
+    <label>Address:</label>
+    <textarea name="address" placeholder="Enter your address" required></textarea>
+
+    <button type="submit">Submit Request</button>
+  </form>
+
+  <div class="footer">
+    © 2025 Government Residence Women Polytechnic, Tasgaon
+  </div>
+</div>
+
+<script>
+// ===== Enrollment Photo Auto Load =====
+let e = document.getElementById("enroll").value;
+if(e){
+  fetch(`/get_photo/${e}`)
+  .then(r=>r.json())
+  .then(data=>{
+    let img = document.getElementById("studentPhoto");
+    if(data.photo){
+      img.src = data.photo;
+      img.style.display = "block";
+    }
+  });
+}
+
+
+// ===== Disable Previous Dates =====
+const fromDate = document.getElementById("from_date");
+const toDate = document.getElementById("to_date");
+
+// Get today's date in yyyy-mm-dd
+const today = new Date().toISOString().split("T")[0];
+
+// Set minimum date to today
+fromDate.min = today;
+toDate.min = today;
+
+// Ensure To Date >= From Date
+fromDate.addEventListener("change", function() {
+    toDate.min = this.value;
+});
+</script>
+
+</body>
+</html>

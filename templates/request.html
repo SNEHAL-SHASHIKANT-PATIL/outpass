@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Request Dashboard</title>
+
+<style>
+body{
+  margin:0;
+  padding:0;
+  background:white;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Wrapper */
+.wrapper{
+  width:95%;
+  margin:auto;
+  margin-top:30px;
+}
+
+/* Page Title */
+h1{
+  text-align:center;
+  color:#005fff;
+  margin-bottom:25px;
+}
+
+/* Card Container (2 cards horizontal) */
+.card-container{
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+  gap:40px;
+  flex-wrap:nowrap;
+}
+
+/* Individual Card */
+.card{
+  width:380px;
+  background:white;
+  border-radius:10px;
+  border:1px solid #d3d3d3;
+  box-shadow:0 4px 10px rgba(0,0,0,0.1);
+  padding:20px;
+  text-align:center;
+}
+
+/* Card Header */
+.card-header{
+  background:#007bff;
+  color:white;
+  padding:8px;
+  border-radius:6px;
+  font-size:18px;
+  font-weight:600;
+}
+
+/* Text */
+.card p{
+  margin-top:10px;
+  color:#333;
+  font-size:14px;
+}
+
+/* Button */
+button, .btn-link{
+  padding:10px 20px;
+  border:none;
+  border-radius:6px;
+  background:#007bff;
+  color:white;
+  cursor:pointer;
+  margin-top:10px;
+  font-size:14px;
+  min-width:200px;
+  text-decoration:none;
+  display:inline-block;
+}
+
+button:hover, .btn-link:hover{
+  background:#005ad6;
+}
+
+/* Incoming Card Green */
+.card-header.green{
+  background:#00a650;
+}
+
+button.green, .btn-link.green{
+  background:#00a650;
+}
+
+button.green:hover, .btn-link.green:hover{
+  background:#008a40;
+}
+</style>
+</head>
+
+<body>
+
+<div class="wrapper">
+
+<h1>Request Dashboard</h1>
+
+<div class="card-container">
+
+  <!-- Outgoing Request Card -->
+  <div class="card">
+      <div class="card-header">
+          Outgoing Request
+      </div>
+
+      <p>Check all students who applied for Outgoing Outpass</p>
+
+      <form action="{{ url_for('warden_summary') }}">
+          <button type="submit">View All Outgoing Requests</button>
+      </form>
+  </div>
+
+  <!-- Incoming Request Card -->
+  <div class="card">
+      <div class="card-header green">
+          Incoming Request
+      </div>
+
+      <p>Check all students who applied for Incoming Outpass</p>
+
+      <form action="{{ url_for('guard_granted') }}">
+          <button type="submit" class="green">
+            View All Incoming Requests
+          </button>
+      </form>
+  </div>
+
+</div>
+
+</div>
+
+</body>
+</html>

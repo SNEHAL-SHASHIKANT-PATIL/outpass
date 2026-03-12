@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <title>Guard Dashboard</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <style>
+    body{font-family: Arial, Helvetica, sans-serif; padding:20px; background:#f7f7f7;}
+    table {border-collapse:collapse; width:100%; background:white;}
+    th, td {padding:10px; border:1px solid #ddd; text-align:left;}
+    th {background:#efefef;}
+    .btn {padding:6px 10px; border-radius:6px; border:none; cursor:pointer;}
+    .btn-approve {background:#2d9f2d; color:white;}
+    .btn-reject {background:#d23f3f; color:white;}
+    .btn-outin {background:#2b8bd1; color:white;}
+    .toast {position:fixed; right:20px; top:20px; padding:12px 16px; background:#333; color:white; border-radius:6px; display:none;}
+    .filters {margin-bottom:10px;}
+  </style>
+  <script src="/static/guard.js"></script>
+</head>
+<body>
+  <div>
+    <h2>Guard Dashboard</h2>
+    <div>
+      <a href="/upload_ids">Upload ID Excel</a> |
+      <a href="/">Refresh</a>
+    </div>
+    <hr/>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul>
+        {% for cat, msg in messages %}
+          <li><strong>{{cat}}:</strong> {{msg}}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </div>
+
+  <div id="toast" class="toast"></div>
+  <script>
+    function showToast(msg){
+      const t = document.getElementById("toast");
+      t.innerText = msg;
+      t.style.display = "block";
+      setTimeout(()=> t.style.display="none", 2500);
+    }
+  </script>
+</body>
+</html>

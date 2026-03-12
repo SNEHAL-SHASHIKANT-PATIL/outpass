@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>College Management System</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+background-image: url("{{ url_for('static', filename='college_bgg.jpeg') }}");    height:300px;
+    margin:0;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    background-color: #f5f5f5;
+}
+
+
+/* ===== NAVBAR ====== */
+.navbar {
+    background: #0c2c50;
+    color:white;
+    padding:12px 30px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+.navbar .left {
+    font-size:20px;
+    font-weight:bold;
+    letter-spacing:1px;
+}
+.navbar a {
+    color:white;
+    text-decoration:none;
+    margin:0 15px;
+    font-size:16px;
+}
+.navbar .admin-btn {
+    background:#ff7b00;
+    padding:8px 15px;
+    border-radius:5px;
+    font-weight:bold;
+}
+
+
+/* ===== HEADER AREA ===== */
+.header {
+    
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    color:white;
+}
+.header h1 {
+    font-size:38px;
+    font-weight:900;
+}
+.header span { color:#ff7b00; }
+.header p {
+    font-size:18px;
+    margin-top:-10px;
+}
+
+/* ===== MODULE BOXES ===== */
+.main {
+    display:flex;
+    justify-content:center;
+    gap:40px;
+    padding:30px;
+    flex-wrap: wrap;
+}
+
+.module-box {
+    background:white;
+    width:430px;
+    border-radius:8px;
+    box-shadow:0px 3px 10px rgba(0,0,0,0.1);
+    padding:25px;
+}
+.module-box h2 {
+    color:#0c2c50;
+    font-size:24px;
+    margin-top:0;
+}
+.module-box p { color:#333; }
+.btn-orange, .btn-blue {
+    margin-top:15px;
+    display:inline-block;
+    text-decoration:none;
+    padding:10px 18px;
+    border-radius:5px;
+    font-size:16px;
+    font-weight:bold;
+    color:white;
+}
+.btn-orange { background:#ff7b00; }
+.btn-blue { background:#0057d8; }
+
+ul { margin-top:12px; }
+ul li {
+    list-style:none;
+    padding:3px 0;
+}
+ul li::before {
+    content:"✔ ";
+    color:green;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+    background:#06325f;
+    color:white;
+    text-align:center;
+    padding:12px;
+    font-size:18px;
+    margin-top:20px;
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <div class="left">GOVERNMENT RESIDENCE WOMEN POLYTECHNIC TASGAON</div>
+    <div class="right">
+        <a href="{{ url_for('welcome') }}">Home</a>
+        <a href="{{ url_for('about') }}">About</a>
+        <a href="{{ url_for('features') }}">Features</a>
+        <a href="#" class="admin-btn">ADMIN LOGIN</a>
+    </div>
+</div>
+
+
+<!-- HEADER -->
+<div class="header">
+    <h1>COLLEGE MANAGEMENT <span>SYSTEM</span></h1>
+    <p>Manage Student Outpass Requests & Monitor Student Movements</p>
+</div>
+
+<!-- MODULES -->
+<div class="main">
+    <!-- OUTPASS MODULE -->
+    <div class="module-box">
+        <h2>Outpass Request System</h2>
+        
+        <a href="{{ url_for('outpass_m') }}" class="btn-orange">OUTPASS REQUEST LOGIN</a>
+        <ul>
+            <li>Apply for Outpass</li>
+            <li>Track Approval Status</li>
+        </ul>
+    </div>
+
+    <!-- ENTRY EXIT MODULE -->
+    <div class="module-box">
+        <h2>Entry & Exit  System</h2>
+        
+        <a href="{{ url_for('entryexit') }}" class="btn-blue">REGISTER ENTRY EXIT</a>
+        <ul>
+            <li>Track Student Movements</li>
+            <li>Saves data & Logs</li>
+        </ul>
+    </div>
+</div>
+
+</body>
+</html>

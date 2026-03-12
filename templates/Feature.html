@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Features</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background-color: #f4f6f8;
+            color: #333;
+        }
+
+        .features-section {
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .features-section h2 {
+            text-align: center;
+            color: #0b3c5d;
+            margin-bottom: 40px;
+            font-size: 32px;
+        }
+
+        .features-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .feature-card {
+            background-color: #ffffff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-card h3 {
+            color: #ff8c00;
+            margin-bottom: 12px;
+            font-size: 20px;
+        }
+
+        .feature-card p {
+            text-align: justify;
+            line-height: 1.6;
+            font-size: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<section class="features-section">
+    <h2>System Features</h2>
+
+    <div class="features-container">
+
+        <div class="feature-card">
+            <h3>Real-Time Entry & Exit Tracking</h3>
+            <p>
+                Records student entry and exit activities in real time with accurate date and time,
+                ensuring reliable monitoring of campus movement.
+            </p>
+        </div>
+
+        <div class="feature-card">
+            <h3>Secure Admin Access</h3>
+            <p>
+                Provides secure login for authorized administrators to manage and monitor student
+                entry and exit records effectively.
+            </p>
+        </div>
+
+        <div class="feature-card">
+            <h3>Student Movement History</h3>
+            <p>
+                Maintains a complete digital history of student movements, enabling easy retrieval
+                and verification of past records.
+            </p>
+        </div>
+
+        <div class="feature-card">
+            <h3>Centralized Monitoring Dashboard</h3>
+            <p>
+                Offers a centralized interface for administrators to monitor all entry and exit
+                activities across the campus.
+            </p>
+        </div>
+
+        <div class="feature-card">
+            <h3>Enhanced Campus Security</h3>
+            <p>
+                Helps identify unauthorized or irregular movements, contributing to improved
+                safety and security within the institution.
+            </p>
+        </div>
+
+        <div class="feature-card">
+            <h3>Automated Record Management</h3>
+            <p>
+                Eliminates manual registers by maintaining digital records, reducing paperwork and
+                minimizing human errors.
+            </p>
+        </div>
+
+        <div class="feature-card">
+            <h3>User-Friendly Interface</h3>
+            <p>
+                Designed with a simple and intuitive interface, allowing administrators to operate
+                the system with minimal training.
+            </p>
+        </div>
+
+        <div class="feature-card">
+            <h3>Scalable System Design</h3>
+            <p>
+                Built with scalability in mind, allowing future enhancements and integration with
+                additional campus management modules.
+            </p>
+        </div>
+
+    </div>
+</section>
+
+</body>
+</html>

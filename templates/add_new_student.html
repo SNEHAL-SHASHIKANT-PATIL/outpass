@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Add Student</title>
+<style>
+body{
+    font-family:Segoe UI;
+    background:#f4f6f9;
+    padding:40px;
+}
+.card{
+    max-width:500px;
+    margin:auto;
+    background:white;
+    padding:25px;
+    border-radius:12px;
+}
+input{
+    width:100%;
+    padding:10px;
+    margin:8px 0;
+}
+button{
+    padding:10px 16px;
+    background:#198754;
+    color:white;
+    border:none;
+    border-radius:6px;
+}
+video{
+    width:100%;
+    border-radius:10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+<h2>Add New Student</h2>
+
+<input id="enroll" placeholder="Enrollment No">
+<input id="name" placeholder="Name">
+<input id="dept" placeholder="Department">
+<input id="year" placeholder="Year">
+<input id="phone" placeholder="Mobile No">
+
+<video id="video" autoplay></video><br><br>
+<button onclick="capture()">📸 Capture Image</button>
+<p id="count">0 / 4 captured</p>
+
+<button onclick="save()">💾 Save Student</button>
+</div>
+
+<script>
+let images = [];
+
+const video = document.getElementById("video");
+navigator.mediaDevices.getUserMedia({ video: true })
+.then(stream => video.srcObject = stream);
+
+function capture(){
+    if(images.length >= 4){
+        alert("Only 4 images allowed");
+        return;
+    }
+    const canvas = document.createElement("canvas");
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    canvas.getContext("2d").drawImage(video, 0, 0);
+    images.push(canvas.toDataURL("image/jpeg"));
+    document.getElementById("count").innerText =
+        images.length + " / 4 captured";
+}
+
+function save(){
+    const enroll = document.getElementById("enroll").value.trim();
+    const name   = document.getElementById("name").value.trim();
+    const dept   = document.getElementById("dept").value.trim();
+    const year   = document.getElementById("year").value.trim();
+    const phone  = document.getElementById("phone").value.trim();
+
+    if(!enroll || !name || !dept || !year || !phone){
+        alert("❌ All fields required");
+        return;
+    }
+
+    if(images.length < 4){
+        alert("❌ Please capture 4 images");
+        return;
+    }
+
+    fetch("/save_student_camera", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            enroll: enroll,
+            name: name,
+            dept: dept,
+            year: year,
+            phone: phone,
+            images: images
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        alert(data.msg);
+        if(data.status === "success"){
+            window.location.href = "/";
+        }
+    });
+}
+</script>
+
+
+</body>
+</html>
