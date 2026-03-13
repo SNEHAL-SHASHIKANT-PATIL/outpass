@@ -1,0 +1,8 @@
+Flask==2.2.5
+gunicorn
+numpy==1.26.4
+opencv-python-headless
+face-recognition
+Pillow
+pandas
+flask-mail
