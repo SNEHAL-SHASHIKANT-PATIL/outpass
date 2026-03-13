@@ -1,14 +1,14 @@
 {
   "builds": [
     {
-      "src": "karad_final.py",
+      "src": "app.py",
       "use": "@vercel/python"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "karad_final.py"
+      "dest": "app.py"
     }
   ]
 }
