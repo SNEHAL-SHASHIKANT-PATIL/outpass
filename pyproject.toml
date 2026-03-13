@@ -1,0 +1,5 @@
+[tool.vercel]
+framework = "flask"
+
+[tool.vercel.build]
+entrypoint = "app.py"
