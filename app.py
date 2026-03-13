@@ -12,8 +12,8 @@ app.secret_key = "super_secret_key_123"
 
 import os
 
-DB_PATH = 'outpass1.db'
-DATA_PATH = 'Dataset.csv.xlsx'
+DB_PATH = os.path.join(os.getcwd(), 'outpass1.db')
+DATA_PATH = os.path.join(os.getcwd(), 'Dataset.csv.xlsx')
 
 
 
