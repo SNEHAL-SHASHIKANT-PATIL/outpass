@@ -6,4 +6,5 @@ face-recognition
 Pillow
 pandas
 requests==2.31.0
+openpyxl==3.1.3
 flask-mail
