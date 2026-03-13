@@ -8,7 +8,9 @@ import random
 import pandas as pd
 
 app = Flask(__name__)
-app.secret_key = "super_secret_key_123"
+
+# Secret key from environment variable; fallback for local dev
+app.secret_key = os.environ.get('SECRET_KEY', 'super_secret_key_123')
 
 import os
 
