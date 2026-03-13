@@ -84,6 +84,10 @@ df.columns = [c.strip().replace(" ", "_").upper() for c in df.columns]
 def welcome():
     return render_template('home1.html')
 
+@app.route('/manifest.json')
+def manifest():
+    return send_from_directory('.', 'manifest.json')
+
 @app.route("/about")
 def about():
     return render_template("about.html")

@@ -1,0 +1,1 @@
+web: gunicorn karad_final:app

@@ -1,18 +1,26 @@
-Flask==2.3.2
-numpy==2.3.4
-opencv-python==4.13.0
-pandas==2.1.1
-gunicorn==25.1.0
-aiohappyeyeballs==2.6.1
-requests==2.31.0
-click==8.3.1
 blinker==1.9.0
-Werkzeug==3.1.6
-Jinja2==3.1.6
-itsdangerous==2.2.0
-colorama==0.4.6
-charset-normalizer==3.4.5
+certifi==2026.1.4
+charset-normalizer==3.4.4
+click @ file:///D:/bld/bld/rattler-build_click_1764518654/work
+colorama @ file:///home/conda/feedstock_root/build_artifacts/colorama_1733218098505/work
+dlib @ file:///C:/bld/dlib-split_1761791688257/work
+et_xmlfile==2.0.0
+face-recognition @ file:///home/conda/feedstock_root/build_artifacts/face_recognition_1619808233029/work
+face-recognition-models @ file:///home/conda/feedstock_root/build_artifacts/face_recognition_models_1595707436534/work
+Flask==3.1.2
 idna==3.11
-urllib3==2.6.3
-certifi==2026.2.25
+itsdangerous==2.2.0
+Jinja2==3.1.6
 MarkupSafe==3.0.3
+numpy @ file:///D:/bld/numpy_1747544591878/work/dist/numpy-2.2.6-cp310-cp310-win_amd64.whl#sha256=af66576ce916c795ffa81be9620c8138a3fda6e1713b2bf7775a630e47eca3a8
+opencv-python==4.13.0.92
+openpyxl==3.1.5
+pandas==2.3.3
+pillow @ file:///D:/bld/bld/rattler-build_pillow_1758208682/work
+python-dateutil==2.9.0.post0
+pytz==2025.2
+requests==2.32.5
+six==1.17.0
+tzdata==2025.3
+urllib3==2.6.3
+Werkzeug==3.1.5
