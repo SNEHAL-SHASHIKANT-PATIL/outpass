@@ -1,0 +1,14 @@
+{
+  "builds": [
+    {
+      "src": "karad_final.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "karad_final.py"
+    }
+  ]
+}
